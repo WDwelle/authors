@@ -8,17 +8,13 @@ const Update = (props) => {
 
     const { id } = useParams();
 
-    const [title, setTitle] = useState("");
-    const [price, setPrice] = useState();
-    const [description, setDescription] = useState("");
+    const [name, setName] = useState("");
     const [isSet, setIsSet] = useState(false);
     useEffect(() => {
-        axios.get("http://localhost:8000/api/products/" + id)
+        axios.get("http://localhost:8000/api/authors/" + id)
             .then(res => {
-                console.log(res.data.product);
-                setTitle(res.data.product.title);
-                setPrice(res.data.product.price);
-                setDescription(res.data.product.description);
+                console.log(res.data.author);
+                setName(res.data.author.name);
                 setIsSet(true);
             })
             .catch(err => console.log(err))
@@ -29,13 +25,11 @@ const Update = (props) => {
         e.preventDefault();
 
         // create the obj from the form
-        const newProduct = {
-            title: title,
-            price: price,
-            description: description
+        const newAuthor = {
+            name: name
         }
 
-        axios.put("http://localhost:8000/api/products/" + id, newProduct)
+        axios.put("http://localhost:8000/api/authors/" + id, newAuthor)
             .then(res => {
                 console.log(res.data);
                 console.log("SUCCESS");
@@ -49,15 +43,10 @@ const Update = (props) => {
 
     return <div>
         <h3>UPDATE</h3>
-        <Link to="/products">Home</Link>
+        <Link to="/authors">Home</Link>
         <form onSubmit={update}>
-            title:
-            <input type="text" onChange={e => setTitle(e.target.value)} value={title} />
-            price:
-            <input type="number" onChange={e => setPrice(e.target.value)} value={price}/>
-            Description:
-            <textarea onChange={e => setDescription(e.target.value)} value={description}/>
-            <button>submit</button>
+            name:
+            <input type="text" onChange={e => setName(e.target.value)} value={name} />
         </form>
     </div>;
 };

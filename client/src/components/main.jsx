@@ -6,71 +6,36 @@ const Main = (props) => {
 
     const history = useHistory();
 
-    const [title, setTitle] = useState("");
-    const [price, setPrice] = useState();
-    const [description, setDescription] = useState("");
-    const [products, setProducts] = useState([]);
+    const [authors, setAuthors] = useState([]);
 
-//===CREATE===\\
-    const createProduct = (e) => {
-        e.preventDefault();
-
-        const newProduct = {
-            title: title,
-            price: price,
-            description: description
-        }
-
-        axios.post("http://localhost:8000/api/products", newProduct)
-            .then((res) => {
-                console.log("Success");
-                history.push("/");
-            })
-            .catch( err => {
-                console.log("Error");
-                console.log(err.response.data);
-            })
-    }
 //===READ===\\
     useEffect( () => {
-        axios.get("http://localhost:8000/api/products")
+        axios.get("http://localhost:8000/api/authors")
             .then( (res) => { 
-                console.log(res.data.products)
-                setProducts(res.data.products)
+                console.log(res.data.authors)
+                setAuthors(res.data.authors)
             })
             .catch( err => console.log(err))
     },[])
 
 //===DELETE===\\
-    const deleteProduct = (deleteId) => {
-        axios.delete("http://localhost:8000/api/products/" + deleteId)
+    const deleteAuthor = (deleteId) => {
+        axios.delete("http://localhost:8000/api/authors/" + deleteId)
             .then( res => {
                 console.log("Success")
-                setProducts(products.filter( (product) => product._id !== deleteId))
+                setAuthors(authors.filter( (author) => author._id !== deleteId))
             })
             .catch( err => console.log(err))
     }
 
     return (
         <div>
-            <h3>Create new product</h3>
-            <form onSubmit={createProduct}>
-                title
-                <input type="text" onChange={e => setTitle(e.target.value)} value={title}/>
-                price
-                <input type="number" onChange={e => setPrice(e.target.value)} value={price}/>
-                description
-                <textarea onChange={e => setDescription(e.target.value)} value={description}/>
-                <button>Create</button>
-            </form>
-            <hr/>
-            <h3>Products</h3>
+            <h3>Authors</h3>
             {
-                products.map((product, i) => {
+                authors.map((author, i) => {
                     return <div key={i}>
-                        <Link to={"/products/" + product._id}>{product.title}</Link>
-                        <button onClick={ () => deleteProduct(product._id)}>DELETE</button>
-                        <Link to={"/products/" + product._id + "/update"}>Edit</Link>
+                        <button onClick={ () => deleteAuthor(author._id)}>DELETE</button>
+                        <Link to={"/authors/" + author._id + "/update"}>Edit</Link>
                     </div>
                 })
             }
