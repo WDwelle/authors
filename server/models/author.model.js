@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+//Setup schema
 const AuthorSchema = new mongoose.Schema({
     name: {
         type: String,

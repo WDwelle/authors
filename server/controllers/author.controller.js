@@ -8,13 +8,13 @@ module.exports.createNewAuthor = (req, res) => {
 }
 
 //===READ===\\
-module.exports.findAllAuthors = (req, res) => {
+module.exports.findAllAuthors = (req, res) => {//Read all
     Author.find()
         .then(allDaAuthors => res.json({message: "success", Authors: allDaAuthors}))
         .catch(err => res.json({ message: "something went wrong", error: err}));
 }
 
-module.exports.findOneSingleAuthor = (req, res) => {
+module.exports.findOneSingleAuthor = (req, res) => {//Read One
     Author.findOne({_id: req.params.id })
         .then(oneSingleAuthor => res.json({message: "success", Author : oneSingleAuthor}))
         .catch(err => res.json({ message: "something went wrong", error: err}));
