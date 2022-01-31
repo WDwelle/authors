@@ -12,8 +12,8 @@ const Main = (props) => {
     useEffect( () => {
         axios.get("http://localhost:8000/api/authors")
             .then( (res) => { 
-                console.log(res.data.authors)
-                setAuthors(res.data.authors)
+                console.log(res.data.Authors)
+                setAuthors(res.data.Authors)
             })
             .catch( err => console.log(err))
     },[])
@@ -30,12 +30,13 @@ const Main = (props) => {
 
     return (
         <div>
-            <h3>Authors</h3>
+            <Link to="/authors/new">Create an author</Link>
             {
                 authors.map((author, i) => {
                     return <div key={i}>
+                        <p>{author.name}</p>
                         <button onClick={ () => deleteAuthor(author._id)}>DELETE</button>
-                        <Link to={"/authors/" + author._id + "/update"}>Edit</Link>
+                        <button><Link to={"/authors/" + author._id + "/update"}>Edit</Link></button>
                     </div>
                 })
             }

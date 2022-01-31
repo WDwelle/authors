@@ -3,10 +3,8 @@ const mongoose = require("mongoose");
 const AuthorSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [
-            true,
-            "Name must be present"
-        ]
+        required: [true, "Name must be present"],
+        minLength: [3, "Name must be at least 3 charachters"]
     }
 
 },{timestamps: true});

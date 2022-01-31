@@ -4,7 +4,7 @@ const Author = require('../models/author.model')
 module.exports.createNewAuthor = (req, res) => {
     Author.create(req.body)
         .then(newlyCreatedAuthor => res.json({message: "success", Author: newlyCreatedAuthor}))
-        .catch(err => res.json({ message: "something went wrong", error: err}));
+        .catch(err => res.status(400).json(err));
 }
 
 //===READ===\\
@@ -28,7 +28,7 @@ module.exports.updateExistingAuthor = (req, res) => {
         { new: true, runValidators: true }
     )
         .then(updatedAuthor => res.json({message: "success", Author: updatedAuthor }))
-        .catch(err => res.json({ message: 'Something went wrong', error: err }));
+        .catch(err => res.status(400).json(err));
 }
 
 //===DELETE===\\

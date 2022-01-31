@@ -15,7 +15,7 @@ function App() {
           <Update/>
         </Route>
 
-        {/*view one product*/}
+        {/*Create*/}
         <Route exact path="/authors/new">
           <Create/>
         </Route>
